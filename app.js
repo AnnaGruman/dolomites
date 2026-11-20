@@ -73,6 +73,7 @@
     todoCount++; updateTodoBar(); console.warn("חסרה תמונה:", S.cover);
   };
   if (S.coverHasText) { hero.classList.add("whole"); $("cover-bg").src = S.cover; }
+  else if (S.coverTextPos === "top") hero.classList.add("top");
   cover.src = S.cover;
   if (S.mapImage) {
     $("map-img").src = S.mapImage;

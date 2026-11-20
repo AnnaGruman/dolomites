@@ -17,9 +17,11 @@ window.SITE = {
   kicker: "המסלול המלא",
   cover: "images/cover.jpg",
   // true = הכותרת כבר כתובה על תמונת הקאבר, אז האתר לא כותב אותה שוב מעליה
-  coverHasText: true,
+  coverHasText: false,
+  // איפה הכותרת על הקאבר: "top" למעלה, "bottom" למטה
+  coverTextPos: "top",
   // המפה המאוירת מהקרוסלה (מופיעה מעל המפה האינטראקטיבית). "" = בלי
-  mapImage: "images/map-illustrated.jpg",
+  mapImage: "",
 
   intro: [
     "טיול זוגי של 6 ימים בדולומיטים וצפון איטליה. 3 ילדים נשארו אצל סבתא, ואנחנו יצאנו לנשום.",
@@ -35,6 +37,7 @@ window.SITE = {
     {
       title: "מילאנו ← ברוניקו",
       image: "images/day1.jpg",
+      gallery: ["images/day1-room.jpg", "images/day1-food.jpg"],
       text: [
         "נוחתים במילאנו (Malpensa) ונוסעים צפונה, כ-5 שעות. בדרך: עצירת קפה קצרה בדרום אגם גארדה.",
         "לינה ב-Arieshof, ליד העיירה ברוניקו, כחצי שעה מאגם בראייס. זה עזר לנו להגיע לאגם מוקדם בבוקר בקלות.",
@@ -49,9 +52,9 @@ window.SITE = {
     },
     {
       title: "אגם בראייס ← אורטיזיי",
-      image: "images/day2.jpg",
+      image: "images/day2-stump.jpg",
       // תמונות נוספות: מחליקים הצידה. pos = איזה חלק בתמונה להראות כשהיא נחתכת
-      gallery: ["images/day2-stump.jpg", "images/day2-clouds.jpg", "images/day2-water.jpg"],
+      gallery: ["images/day2-lake.jpg", "images/day2-clouds.jpg", "images/day2-water.jpg"],
       text: [
         "Lago di Braies: אחד המקומות היפים והמרשימים שיש, למרות שהוא מלא בתיירים.",
         [
@@ -74,8 +77,8 @@ window.SITE = {
     },
     {
       title: "סצ'דה ← ואל די פונס",
-      image: "images/day3.jpg",
-      gallery: ["images/day3-ridge.jpg", { src: "images/day3-sign.jpg", pos: "30% 50%" }, "images/day3-church.jpg"],
+      image: "images/day3-ridge.jpg",
+      gallery: [{ src: "images/day3-sign.jpg", pos: "30% 50%" }, "images/day3-church.jpg"],
       text: [
         "Seceda, אחד משיאי הטיול: עולים לראש ההר בשני רכבלים מאורטיזיי, ולמעלה הנוף הדרמטי של הפסגות המשוננות משאיר אותך בלי מילים.",
         [
@@ -180,7 +183,7 @@ window.SITE = {
       name: "Hotel de la Ville",
       place: "מונזה · Small Luxury Hotels",
       nights: "לילה אחד",
-      image: "",
+      image: { src: "images/hotel3.jpg", pos: "50% 40%", ratio: "4/5" },
       text: "המיקום מצוין: מול וילה ריאלה, דקה הליכה מהפארק וקרוב למרכז ההיסטורי. מלון ותיק בניהול משפחתי, בסגנון אירופאי קלאסי ושמרני, עם רהיטים עתיקים ועיצוב מסורתי. אנחנו פחות התחברנו לסגנון, אבל מי שאוהב אווירה קלאסית ירגיש שם בבית."
     }
   ],
@@ -191,7 +194,7 @@ window.SITE = {
     "חצי פנסיון במלון חסך לנו התרוצצות בערבים",
     "את הרכב השכרנו דרך Discover Cars (אתר שמשווה בין חברות השכרה), מחברת Icaro. היה לנו מעולה",
     "טסנו דרך מילאנו בגלל מונזה. מי שלא מתלהב ממכוניות מירוץ יכול לוותר על מונזה, ולטוס דרך ורונה או ונציה, שקרובות הרבה יותר לדולומיטים",
-    "חוקי החניה והרכבלים מתעדכנים כל שנה, אז כדאי לבדוק לפני הנסיעה"
+    "שעות הפתיחה של הרכבלים, האתרים והאטרקציות משתנות לפי העונה, וגם חוקי החניה מתעדכנים כל שנה. לפני שיוצאים, כדאי לבדוק באתר הרשמי של כל מקום"
   ],
 
   prices: [
@@ -202,6 +205,6 @@ window.SITE = {
   pricesNote: "המחירים נכונים ליוני 2026",
 
   outroTitle: "נהניתם מהמסלול?",
-  outroText: "אשמח לצלם אתכם בטיול הבא 📸",
-  outroButton: "לאינסטגרם שלי"
+  outroText: "לעוד תוכן והמלצות על טיולים בארץ ובעולם, עם ובלי ילדים, מוזמנים לעקוב אחריי באינסטגרם 📸",
+  outroButton: "לעקוב באינסטגרם"
 };
