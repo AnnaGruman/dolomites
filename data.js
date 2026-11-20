@@ -17,11 +17,8 @@ window.SITE = {
   kicker: "המסלול המלא",
   cover: "images/cover.jpg",
   // true = הכותרת כבר כתובה על תמונת הקאבר, אז האתר לא כותב אותה שוב מעליה
-  coverHasText: false,
   // איפה הכותרת על הקאבר: "top" למעלה, "bottom" למטה
   coverTextPos: "top",
-  // המפה המאוירת מהקרוסלה (מופיעה מעל המפה האינטראקטיבית). "" = בלי
-  mapImage: "",
 
   intro: [
     "טיול זוגי של 6 ימים בדולומיטים וצפון איטליה. 3 ילדים נשארו אצל סבתא, ואנחנו יצאנו לנשום.",
@@ -91,7 +88,7 @@ window.SITE = {
       ],
       tip: "סצ'דה בבוקר, ואל די פונס שעתיים לפני השקיעה",
       points: [
-        { name: "רכבל סצ'דה (אורטיזיי)", query: "Seilbahn Furnes Seceda Ortisei", lat: 46.5785, lng: 11.6705 },
+        { name: "רכבל סצ'דה (אורטיזיי)", query: "Seilbahn Furnes Seceda Ortisei", lat: 46.5785, lng: 11.6705, map: false },
         { name: "רכס סצ'דה", query: "Seceda", lat: 46.6000, lng: 11.7240 },
         { name: "St. Johann in Ranui", query: "Chiesetta di San Giovanni in Ranui", lat: 46.6315, lng: 11.7465 },
         { name: "תצפית סנטה מגדלנה", query: "Santa Maddalena Val di Funes", lat: 46.6435, lng: 11.7230 }
@@ -111,7 +108,7 @@ window.SITE = {
       ],
       tip: "לצלם מגובה נמוך, עם הדשא בפריים",
       points: [
-        { name: "רכבל אלפה די סיוזי (אורטיזיי)", query: "Cabinovia Ortisei Alpe di Siusi", lat: 46.5747, lng: 11.6713 },
+        { name: "רכבל אלפה די סיוזי (אורטיזיי)", query: "Cabinovia Ortisei Alpe di Siusi", lat: 46.5747, lng: 11.6713, map: false },
         { name: "אלפה די סיוזי", query: "Compatsch Alpe di Siusi", lat: 46.5417, lng: 11.6138 }
       ]
     },
@@ -206,5 +203,15 @@ window.SITE = {
 
   outroTitle: "נהניתם מהמסלול?",
   outroText: "לעוד תוכן והמלצות על טיולים בארץ ובעולם, עם ובלי ילדים, מוזמנים לעקוב אחריי באינסטגרם 📸",
-  outroButton: "לעקוב באינסטגרם"
+  outroButton: "לעקוב באינסטגרם",
+
+  // כפתור השיתוף בוואטסאפ
+  siteUrl: "https://dolomites-nu.vercel.app",
+  shareButton: "שלחו למי שטס איתכם ✈️",
+  shareText: "מצאתי מסלול מושלם לדולומיטים, יום אחרי יום, עם מפה, מלונות וטיפים 🏔️ תסתכלו:",
+
+  // שורה מתחת לכפתור האינסטגרם
+  hireText: "רוצים שאצלם גם אתכם? 📸",
+  hireLinkText: "שלחו לי הודעה באינסטגרם",
+  hireUrl: "https://ig.me/m/anna_gruzman_photography"
 };

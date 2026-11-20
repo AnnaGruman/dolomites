@@ -30,7 +30,6 @@
 <div id="todo-bar" class="todo-bar" hidden></div>
 
 <header class="hero" id="top">
-  <img class="hero-bg" id="cover-bg" alt="" aria-hidden="true">
   <img class="hero-img" id="cover" alt="הדולומיטים" fetchpriority="high">
   <div class="hero-text" id="hero-text">
     <span class="chip" id="kicker"></span>
@@ -54,8 +53,7 @@
       <span class="chip">המסלול במבט אחד</span>
       <h2>מפה</h2>
     </div>
-    <figure class="map-art" id="map-art" hidden><img id="map-img" alt="מפה מאוירת של המסלול" loading="lazy" decoding="async"></figure>
-    <div class="wrap"><p class="hint">במפה למטה: לחיצה על סיכה קופצת ליום המתאים</p></div>
+    <div class="wrap"><p class="hint">לחיצה על סיכה קופצת ליום המתאים</p></div>
     <div class="map-wrap"><div id="map" role="region" aria-label="מפת המסלול"></div></div>
   </section>
 
@@ -94,7 +92,11 @@
     <div class="wrap">
       <h2 id="outro-title"></h2>
       <p id="outro-text"></p>
-      <a id="ig-btn" class="btn btn-big" target="_blank" rel="noopener"></a>
+      <div class="outro-btns">
+        <a id="share-btn" class="btn btn-big btn-share" target="_blank" rel="noopener"></a>
+        <a id="ig-btn" class="btn btn-big" target="_blank" rel="noopener"></a>
+      </div>
+      <p class="hire" id="hire"></p>
       <p class="handle" id="ig-handle"></p>
     </div>
   </section>

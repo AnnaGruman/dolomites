@@ -69,17 +69,12 @@
   var cover = $("cover"), hero = document.querySelector(".hero");
   cover.alt = S.title + " · " + S.subtitle;
   cover.onerror = function () {
-    cover.remove(); $("cover-bg").remove(); hero.classList.remove("whole");
+    cover.remove();
     todoCount++; updateTodoBar(); console.warn("חסרה תמונה:", S.cover);
   };
-  if (S.coverHasText) { hero.classList.add("whole"); $("cover-bg").src = S.cover; }
-  else if (S.coverTextPos === "top") hero.classList.add("top");
+  if (S.coverTextPos === "top") hero.classList.add("top");
   cover.src = S.cover;
-  if (S.mapImage) {
-    $("map-img").src = S.mapImage;
-    $("map-img").onerror = function () { $("map-art").hidden = true; };
-    $("map-art").hidden = false;
-  }
+
 
   // Nav + days
   var nav = "", days = "";
@@ -129,6 +124,12 @@
   var ig = $("ig-btn");
   ig.href = S.instagram; ig.textContent = S.outroButton + " ↗";
   $("ig-handle").textContent = S.instagramHandle || "";
+  var share = $("share-btn"), siteUrl = S.siteUrl || location.href.split("#")[0];
+  share.href = "https://wa.me/?text=" + encodeURIComponent((S.shareText || "") + "\n" + siteUrl);
+  share.textContent = S.shareButton || "שלחו למי שטס איתכם ✈️";
+  if (S.hireText) {
+    $("hire").innerHTML = txt(S.hireText) + (S.hireLinkText ? ' <a href="' + esc(safeUrl(S.hireUrl || S.instagram)) + '" target="_blank" rel="noopener">' + txt(S.hireLinkText) + "</a>" : "");
+  }
   $("year").textContent = new Date().getFullYear();
 
   function updateTodoBar() {
@@ -151,22 +152,83 @@
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
-    var line = [], bounds = [];
+    var line = [], all = [], focus = [], pins = [];
     S.days.forEach(function (d, i) {
       var n = i + 1;
       (d.points || []).forEach(function (p, j) {
         if (typeof p.lat !== "number" || typeof p.lng !== "number") return;
-        var ll = [p.lat, p.lng];
-        line.push(ll); bounds.push(ll);
-        var icon = L.divIcon({ className: "", html: '<div class="pin' + (j === 0 ? " first" : "") + '">' + n + "</div>", iconSize: [30, 30], iconAnchor: [15, 15] });
-        L.marker(ll, { icon: icon, title: p.name, zIndexOffset: j === 0 ? 100 : 0 })
-          .addTo(map)
-          .bindTooltip("יום " + n + " · " + p.name.replace(TODO, ""), { direction: "top", offset: [0, -14] })
-          .on("click", function () { goDay(n); });
+        var ll = L.latLng(p.lat, p.lng);
+        line.push(ll); all.push(ll);
+        if (p.lat >= (S.mapFocusMinLat || 46.3)) focus.push(ll);
+        if (p.map === false) return; // נקודה בלי סיכה (רק כפתור ניווט)
+        pins.push({ ll: ll, n: n, first: j === 0, name: p.name.replace(TODO, "") });
       });
     });
     L.polyline(line, { color: "#c07a5c", weight: 3, opacity: .85, dashArray: "6 7" }).addTo(map);
-    map.fitBounds(bounds, { padding: [18, 18] });
+
+    // סיכות קרובות מתאחדות לסיכה אחת ("2·3"). לחיצה עליה מגדילה את האזור
+    var pinLayer = L.layerGroup().addTo(map);
+    function drawPins() {
+      pinLayer.clearLayers();
+      var groups = [];
+      pins.forEach(function (pn) {
+        var pt = map.latLngToLayerPoint(pn.ll), g = null;
+        for (var k = 0; k < groups.length; k++) if (groups[k].pt.distanceTo(pt) < 36) { g = groups[k]; break; }
+        if (g) g.items.push(pn); else groups.push({ pt: pt, items: [pn] });
+      });
+      // איחוד חוזר: קבוצות שהמרכזים שלהן עדיין קרובים מתאחדות
+      function centerOf(g) { var x = 0, y = 0; g.items.forEach(function (it) { var q = map.latLngToLayerPoint(it.ll); x += q.x; y += q.y; }); return L.point(x / g.items.length, y / g.items.length); }
+      var merged = true;
+      while (merged) {
+        merged = false;
+        for (var a = 0; a < groups.length && !merged; a++) for (var c = a + 1; c < groups.length && !merged; c++) {
+          if (centerOf(groups[a]).distanceTo(centerOf(groups[c])) < 40) { groups[a].items = groups[a].items.concat(groups[c].items); groups.splice(c, 1); merged = true; }
+        }
+      }
+      groups.forEach(function (g) {
+        var days = [];
+        g.items.forEach(function (it) { if (days.indexOf(it.n) < 0) days.push(it.n); });
+        days.sort(function (a, b) { return a - b; });
+        var label = days.join("·"), w = Math.max(30, 14 + label.length * 9);
+        var multi = days.length > 1;
+        var icon = L.divIcon({ className: "", html: '<div class="pin' + (multi ? " multi" : (g.items[0].first ? " first" : "")) + '" style="width:' + w + 'px">' + label + "</div>", iconSize: [w, 30], iconAnchor: [w / 2, 15] });
+        var lls = g.items.map(function (it) { return it.ll; });
+        var center = L.latLngBounds(lls).getCenter();
+        var tip = g.items.map(function (it) { return "יום " + it.n + " · " + it.name; }).join("<br>");
+        L.marker(multi ? center : g.items[0].ll, { icon: icon, title: g.items.map(function (it) { return it.name; }).join(", "), zIndexOffset: multi ? 200 : (g.items[0].first ? 100 : 0) })
+          .addTo(pinLayer)
+          .bindTooltip(tip, { direction: "top", offset: [0, -14] })
+          .on("click", function () {
+            if (!multi) { goDay(days[0]); return; }
+            map.flyToBounds(L.latLngBounds(lls), { padding: [60, 60], maxZoom: 15, duration: .6 });
+            showingAll = false; if (toggleBtn) toggleBtn.textContent = "הצג את כל המסלול";
+          });
+      });
+    }
+    map.on("zoomend", drawPins);
+
+    // פתיחה בזום על הדולומיטים + כפתור "הצג את כל המסלול"
+    var showingAll = false, toggleBtn = null;
+    function showFocus() { map.fitBounds(L.latLngBounds(focus.length ? focus : all), { padding: [26, 26] }); }
+    function showAll() { map.fitBounds(L.latLngBounds(all), { paddingTopLeft: [60, 40], paddingBottomRight: [70, 70] }); }
+    var ToggleCtl = L.Control.extend({
+      options: { position: "bottomright" },
+      onAdd: function () {
+        var b = toggleBtn = L.DomUtil.create("button", "map-toggle");
+        b.type = "button";
+        b.textContent = "הצג את כל המסלול";
+        L.DomEvent.disableClickPropagation(b);
+        L.DomEvent.on(b, "click", function () {
+          showingAll = !showingAll;
+          if (showingAll) showAll(); else showFocus();
+          b.textContent = showingAll ? "חזרה לדולומיטים" : "הצג את כל המסלול";
+        });
+        return b;
+      }
+    });
+    map.addControl(new ToggleCtl());
+    showFocus();
+    drawPins();
     if (touch) {
       // בטלפון: אצבע אחת גוללת את הדף, שתי אצבעות מזיזות את המפה
       map.getContainer().addEventListener("touchstart", function (e) {
