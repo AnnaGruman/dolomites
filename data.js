@@ -84,14 +84,15 @@ window.SITE = {
           "כדאי לעצור באחת הבקתות במסלול לטירמיסו ואפרול שפריץ 🍹"
         ],
         "Val di Funes: אחת התצפיות היפות באזור. כנסיית סן ג'ובאני (St. Johann in Ranui) עומדת לבדה בתוך הירוק, על רקע הפסגות.",
-        "מי שרוצה להמשיך יכול ללכת רגלית לתצפית סנטה מגדלנה (St. Magdalena), כשעה וחצי לכל כיוון, לזווית פתוחה על כל העמק."
+        "משם אפשר להמשיך לתצפית על הכנסייה של סנטה מגדלנה (St. Magdalena), עם זווית פתוחה על כל העמק. ההליכה מסן ג'ובאני לוקחת כשעה וחצי לכל כיוון, אז אני ממליצה לנסוע קרוב יותר: לחנות ליד MiraOdle Apartments בכפר סנטה מגדלנה (אם יש מקום פנוי), וללכת משם לשביל שמוביל לכנסייה."
       ],
       tip: "סצ'דה בבוקר, ואל די פונס שעתיים לפני השקיעה",
       points: [
         { name: "רכבל סצ'דה (אורטיזיי)", query: "Seilbahn Furnes Seceda Ortisei", lat: 46.5785, lng: 11.6705, map: false },
         { name: "רכס סצ'דה", query: "Seceda", lat: 46.6000, lng: 11.7240 },
         { name: "St. Johann in Ranui", query: "Chiesetta di San Giovanni in Ranui", lat: 46.6315, lng: 11.7465 },
-        { name: "תצפית סנטה מגדלנה", query: "Santa Maddalena Val di Funes", lat: 46.6435, lng: 11.7230 }
+        { name: "חניה ליד MiraOdle Apartments", query: "MiraOdle Apartments, Kirchweg 13, 39040 Funes BZ, Italia", lat: 46.6440, lng: 11.7235 },
+        { name: "תצפית סנטה מגדלנה", query: "Santa Maddalena Val di Funes", lat: 46.6435, lng: 11.7230, map: false }
       ]
     },
     {
