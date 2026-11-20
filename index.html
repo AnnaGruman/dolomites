@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>6 ימים בדולומיטים · המסלול המלא</title>
+<meta name="description" content="המסלול המלא לשישה ימים בדולומיטים: מפה, יום אחרי יום, איפה ישנו, טיפים ומחירים. מאת Anna Gruzman Photography.">
+<meta name="theme-color" content="#3b2a20">
+
+<!-- תצוגה מקדימה בוואטסאפ ובאינסטגרם.
+     אחרי ההעלאה: להחליף את https://YOUR-SITE.netlify.app בכתובת האמיתית של האתר (בשתי השורות). -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<meta property="og:title" content="6 ימים בדולומיטים · המסלול המלא">
+<meta property="og:description" content="מסלול | לינה | טיפים 📸 · Anna Gruzman Photography">
+<meta property="og:image" content="https://YOUR-SITE.netlify.app/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://YOUR-SITE.netlify.app/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="todo-bar" class="todo-bar" hidden></div>
+
+<header class="hero" id="top">
+  <img class="hero-bg" id="cover-bg" alt="" aria-hidden="true">
+  <img class="hero-img" id="cover" alt="הדולומיטים" fetchpriority="high">
+  <div class="hero-text" id="hero-text">
+    <span class="chip" id="kicker"></span>
+    <h1 id="title"></h1>
+    <p id="subtitle"></p>
+  </div>
+  <a class="scroll-cue" href="#route" aria-label="למסלול">↓</a>
+</header>
+
+<nav class="topnav" id="topnav" aria-label="ימים">
+  <span class="nav-label">יום</span>
+  <ul id="nav-days"></ul>
+  <a class="brand" href="#top">Anna Gruzman</a>
+</nav>
+
+<main>
+  <section class="wrap intro" id="intro"></section>
+
+  <section class="section" id="route">
+    <div class="wrap">
+      <span class="chip">המסלול במבט אחד</span>
+      <h2>מפה</h2>
+    </div>
+    <figure class="map-art" id="map-art" hidden><img id="map-img" alt="מפה מאוירת של המסלול" loading="lazy" decoding="async"></figure>
+    <div class="wrap"><p class="hint">במפה למטה: לחיצה על סיכה קופצת ליום המתאים</p></div>
+    <div class="map-wrap"><div id="map" role="region" aria-label="מפת המסלול"></div></div>
+  </section>
+
+  <section id="days"></section>
+
+  <section class="section" id="base-sec" hidden>
+    <div class="wrap" id="base"></div>
+  </section>
+
+  <section class="section alt" id="hotels-sec">
+    <div class="wrap">
+      <span class="chip">לינה</span>
+      <h2>איפה ישנו</h2>
+      <div id="hotels" class="hotels"></div>
+    </div>
+  </section>
+
+  <section class="section" id="know-sec">
+    <div class="wrap">
+      <span class="chip">לפני שטסים</span>
+      <h2>מה כדאי לדעת</h2>
+      <ul id="know" class="know"></ul>
+    </div>
+  </section>
+
+  <section class="section alt" id="prices-sec">
+    <div class="wrap">
+      <span class="chip">תקציב</span>
+      <h2>מחירים</h2>
+      <dl id="prices" class="prices"></dl>
+      <p id="prices-note" class="hint"></p>
+    </div>
+  </section>
+
+  <section class="outro">
+    <div class="wrap">
+      <h2 id="outro-title"></h2>
+      <p id="outro-text"></p>
+      <a id="ig-btn" class="btn btn-big" target="_blank" rel="noopener"></a>
+      <p class="handle" id="ig-handle"></p>
+    </div>
+  </section>
+</main>
+
+<footer>© <span id="year"></span> Anna Gruzman Photography</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
